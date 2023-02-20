@@ -1,0 +1,91 @@
+//Бухтияров.А.В-Вар-3
+#include <iostream>
+#include <string>
+using namespace std;
+//Составить алгоритм, находящий, сколько слов в тексте состоит из 6 символов
+int task_3() {
+    string text = "разделите каждую фигуру фигуру отрезком на два треугольника"; //6_слов = 3
+	int i=0,pos1=0, pos2 = 0,leng=0,result=0;
+	bool step = true;
+	
+	while ( i < text.length()-1 ){
+		if (text[i] == ' ') {
+			if (step == 1) {
+				pos2 = i;
+				step = false;
+				if (leng == 6) {
+					result++;
+				}
+				leng = 0;
+			}
+			if (step == 0) {
+				pos1 = i;
+				step = true;
+				if (leng == 6) {
+					result++;
+				}
+				leng = 0;
+			}
+			
+		}
+		else {
+			leng++;
+		}
+		i++;
+		cout << "work" << endl;
+	}
+	return result;
+}
+//Составить алгоритм, находящий самое длинное слово.
+int task_7() {
+	string text = "разделите каждую фигуру фигуру отрезком на два треугольника "; //6_слов = 3
+	int i = 0, pos1 = 0, pos2 = 0, leng = 0, max = 0;
+	bool step = true;
+
+	while (i < text.length()) {
+		if (text[i] == ' ') {
+			if (step == 1) {
+				pos2 = i;
+				step = false;
+				if (leng > max) {
+					max = leng;
+				}
+				leng = 0;
+			}
+			if (step == 0) {
+				pos1 = i;
+				step = true;
+				if (leng > max) {
+					max = leng;
+				}
+				leng = 0;
+			}
+
+		}
+		else {
+			leng++;
+		}
+		i++;
+		cout << "work" << endl;
+	}
+	return max;
+}
+//В данной строке найти количество цифр
+int task_16() {
+	int i=0, number = 0;
+	string text = "разделите каж1дую фиг1уру фиг1уру отре1зком на два треу1гольника ";//5
+	while (i < text.length())
+	{
+		
+		if (text[i]=='1' or text[i] == '2' or text[i] == '3' or text[i] == '4' or text[i] == '5'
+			or text[i] == '6' or text[i] == '7' or text[i] == '8' or text[i] == '9')
+			number++;
+		i++;
+	}
+	return number;
+}
+
+int main()
+{
+	return 0;
+}

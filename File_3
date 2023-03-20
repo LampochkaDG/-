@@ -1,0 +1,126 @@
+//Бухтияров.А.В Вар-3
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+//Реализовать чтение заголовков файлов форматов. Проверить работоспособность
+//можно по примерам.
+//PNG: сигнатура и IHDR Chunk
+struct str {
+    char length[4];
+    char Chunk_type[4];
+    char sing[4];
+    char width[4];
+    char depth[1];
+    char colorType[1];
+    char compression[1];
+    char filter[1];
+    char interlace[1];
+    char crc[4];
+};
+
+int task_1c() {
+    fstream f("1.png", ios::binary | ios::in);
+    if (!f.is_open()) {
+        cout << "error opened";
+        return -1;
+    }
+    char sing[4];
+    str ihdr_chunk[25];
+    f.read((char*)sing, sizeof(char) * 8);
+    f.read((char*)ihdr_chunk, sizeof(str));
+    f.close();
+    cout << sing << endl;
+    cout << ihdr_chunk->length << endl;
+    cout << ihdr_chunk->Chunk_type << endl;
+    cout << ihdr_chunk->sing << endl;
+    cout << ihdr_chunk->width << endl;
+    cout << ihdr_chunk->depth << endl;
+    cout << ihdr_chunk->colorType << endl;
+    cout << ihdr_chunk->compression << endl;
+    cout << ihdr_chunk->filter << endl;
+    cout << ihdr_chunk->interlace << endl;
+    cout << ihdr_chunk->crc << endl;
+    return 0;
+}
+
+/*Протабулировать функцию. Начальную и финальную точки, шаг, параметр Ч
+считывать из файла in.txt. Результат записывать в текстовый файл out.txt. Формат
+записи данных:
+x0, y(x0)
+x1, y(x1)
+x2, y(x2)
+y=(1/2*x)+(1/4*x)...+(1/Ч*x)
+*/
+float fun(float parameter,int i) {
+    float j = 2; float y=0;
+    while (j <= parameter)
+    {
+        y += (1/j)*i;
+        j += 2;
+        cout << y << endl;
+    }
+    return y;
+}
+
+int task_3C() {
+    ifstream inFile;
+    inFile.open("in.txt");
+    //in.txt -> 0 10 1 4
+    if (!inFile.is_open()) {
+        cout << "error opened";
+        return -1;
+    }
+    float x,x0,step,parameter;
+    inFile >> x0 >> x >> step >> parameter;
+    inFile.close();
+    
+    ofstream outFile;
+    outFile.open("out.txt");
+    if (!outFile.is_open()) {
+        cout << "error opened";
+        return -1;
+    }
+    int i = x0;
+    while (i < x)
+    {
+        outFile << "x" << i << ",   y(" << fun(parameter, i) << ")" << endl;
+        i += step;
+        cout << i << endl;
+    }
+    
+    outFile.close();
+    return 0;
+}
+/*Разработать программу для считывания полётных данных о квадрокоптерах из
+файла. Одна строка содержит: Х,У,Команда, где ХУ – координаты, а Команда – это
+набор чисел, характеризующих действие коптера: 10 – взлёт, 20 – посадка, 50 –
+полёт, 60 – набрать высоту, 70 снизить высоту. Каждая новая строка содержит
+новый набор координат и команд. Организовать переменные для хранения
+информации.*/
+int task_6() {
+    ifstream inFile;
+    inFile.open("in_fly.txt");
+    /*in_fly.txt ->
+    0 0 10
+    0 1 60
+    0 10 50
+    10 10 50 
+    10 10 70
+    10 0 20*/
+    if (!inFile.is_open()) {
+        cout << "error opened";
+        return -1;
+    }
+    float x, y, command;
+    inFile >> x >> y >> command;
+    inFile.close();
+    return 0;
+}
+
+int main()
+{
+    
+}
